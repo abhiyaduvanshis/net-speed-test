@@ -7,8 +7,9 @@ export async function GET(req) {
       }
     
       try {
-        const downloadTestUrl = 'http://localhost:3000/10MB-TESTFILE.ORG.pdf'; // Test file URL
-        const startTime = Date.now();
+        const downloadTestUrl = 'https://net-speed-test-eight.vercel.app/5-mb-example-file.pdf'; // Test file URL
+        const startTime = performance.now();
+        const fileSizeInBytes = 5 * 1024 * 1024; // 5 MB (example size)
     
         // Measure Download Speed
         const downloadSpeed = await new Promise((resolve, reject) => {
@@ -20,9 +21,12 @@ export async function GET(req) {
             });
     
             response.on('end', () => {
-              const endTime = Date.now();
+              const endTime = performance.now();
               const durationInSeconds = (endTime - startTime) / 1000;
-              const speedMbps = (downloadedBytes * 8) / (durationInSeconds * 1e6);
+              const speedMbps = (downloadedBytes * 8) / (durationInSeconds * 1000000);
+
+              console.log(downloadedBytes * 8)
+              console.log(durationInSeconds)
               resolve(speedMbps);
             });
 
