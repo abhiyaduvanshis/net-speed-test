@@ -48,9 +48,9 @@ const Homepage = () => {
   const calculateSpeed = async () => {
     setIsTesting(true);
 
-    const testUrl = "http://localhost:3000/5-mb-example-file.pdf"; // Use a file URL of known size
+    const testUrl = "/5-mb-example-file.pdf"; // Use a file URL of known size
     const fileSizeInBytes = 5 * 1024 * 1024; // 5 MB (example size)
-    const startTime = performance.now();
+    const startTime = Date.now();
 
     // Test download speed
     try {
@@ -60,11 +60,12 @@ const Homepage = () => {
 
       if(response){
         console.log(response)
-        const endTime = performance.now();
+        const endTime = Date.now();
         const timeTakenInSeconds = (endTime - startTime) / 1000;
         const speedMbps = (fileSizeInBytes * 8) / (timeTakenInSeconds * 1000000);
         console.log(startTime)
         console.log(endTime)
+        console.log(timeTakenInSeconds)
         setDownloadSpeed(speedMbps.toFixed(2));
       }
 
@@ -84,7 +85,7 @@ const Homepage = () => {
   
      try {
        // Replace with your server endpoint
-       const serverEndpoint = "http://localhost:3000/api/uploadTest";
+       const serverEndpoint = "/api/uploadTest";
  
        await axios.post(serverEndpoint, formData, {
          headers: {
@@ -92,7 +93,7 @@ const Homepage = () => {
          },
        });
  
-       const endTime = performance.now();
+       const endTime = Date.now();
        const timeTakenInSeconds = (endTime - startTime) / 1000;
  
        // Calculate upload speed in Mbps
