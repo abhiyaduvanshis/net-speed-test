@@ -2,7 +2,7 @@ import speedTest from 'speedtest-net';
 import { NextResponse } from 'next/server';
 
 
-export default async function handler(req, res) {
+export async function GET(request) {
   try {
     const test = await speedTest({ acceptLicense: true });
    return NextResponse.json(
