@@ -1,6 +1,6 @@
 import speedTest from 'speedtest-net';
 import { NextResponse } from 'next/server';
-import { Result } from 'postcss';
+
 
 export default async function handler(req, res) {
   try {
