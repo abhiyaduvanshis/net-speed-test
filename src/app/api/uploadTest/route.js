@@ -2,7 +2,13 @@
 
 import { NextResponse } from 'next/server';
 import fs from "node:fs/promises";
-
+export const config = {
+    api: {
+      bodyParser: {
+        sizeLimit: '10mb', // Set the desired limit (e.g., 10 MB)
+      },
+    },
+  };
 export async function POST(request) {
     const formRequestData = await request.formData()
     const image = formRequestData.get('file')
