@@ -13,7 +13,7 @@ export default function Homepage(){
     const calculateSpeed = async () => {
       setIsTesting(true);
       const startTime = performance.now();
-      const fileSizeInBytes = 5 * 1024 * 1024; // 5 MB (example size)
+      const fileSizeInBytes = 4 * 1024 * 1024; // 5 MB (example size)
       const testUrl = "/upload/blob"; // Use a file URL of known size
   
       try {
