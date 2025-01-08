@@ -7,8 +7,6 @@ export async function POST(request) {
     const formRequestData = await request.formData()
     const image = formRequestData.get('file')
 
-    console.log(image)
-
     if(image){
         const arrayBuffer = await image.arrayBuffer();
         const buffer = new Uint8Array(arrayBuffer);
