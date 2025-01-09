@@ -41,7 +41,7 @@ export default function Homepage(){
         setDownloadSpeed("Error");
       }
 
-      const file = new Blobfile([new Array(fileSizeInBytes).fill("A").join("")], {
+      const file = new Blob([new Array(fileSizeInBytes).fill("A").join("")], {
          type: "text/plain",
       });
 
