@@ -13,7 +13,7 @@ export default function Homepage(){
     const calculateSpeed = async () => {
       setIsTesting(true);
       const startTime = performance.now();
-      const fileSizeInBytes = 0.2 * 1024 * 1024; // 5 MB (example size)
+      const fileSizeInBytes = 1 * 1024 * 1024; // 5 MB (example size)
       const testUrl = "/upload/blob"; // Use a file URL of known size
       try {
         const response = await axios.get(testUrl, {
