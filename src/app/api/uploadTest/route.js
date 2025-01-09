@@ -11,7 +11,8 @@ export async function POST(request) {
         if(image){
             const arrayBuffer = await image.arrayBuffer();
             const buffer = new Uint8Array(arrayBuffer);
-            await fs.writeFile(`./public/upload/${image?.name}`, buffer);
+            const test = await fs.writeFile(`./public/upload/${image?.name}`, buffer);
+            console.log(test)
         }
 
         return NextResponse.json(
