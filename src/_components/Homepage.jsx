@@ -13,7 +13,7 @@ export default function Homepage(){
     const calculateSpeed = async () => {
       setIsTesting(true);
       const startTime = performance.now();
-      const fileSizeInBytes = 1 * 1024 * 1024; // 5 MB (example size)
+      const fileSizeInBytes = 0.2 * 1024 * 1024; // 5 MB (example size)
       const testUrl = "/upload/blob"; // Use a file URL of known size
       try {
         const response = await axios.get(testUrl, {
@@ -92,7 +92,7 @@ export default function Homepage(){
     }
   },[downloadSpeed,uploadSpeed])
 
-  
+
     return(
         <main className="container mx-auto px-6 py-12 text-center">
             <h2 className="text-3xl font-bold mb-6">Test Your Internet Speed</h2>
