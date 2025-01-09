@@ -9,13 +9,12 @@ export default function Homepage(){
     const [overAllSpeed, setoverAllSpeed] = useState(null);
     const [ping, setPing] = useState(null);
     const [isTesting, setIsTesting] = useState(false);
-  
+
     const calculateSpeed = async () => {
       setIsTesting(true);
       const startTime = performance.now();
-      const fileSizeInBytes = 2 * 1024 * 1024; // 5 MB (example size)
+      const fileSizeInBytes = 1 * 1024 * 1024; // 5 MB (example size)
       const testUrl = "/upload/blob"; // Use a file URL of known size
-  
       try {
         const response = await axios.get(testUrl, {
           responseType: "arraybuffer",
@@ -25,7 +24,7 @@ export default function Homepage(){
               'Expires': '0',
           },
         });
-  
+
         if(response){
           const getfileSize = response.data.byteLength
           const endTime = performance.now();
@@ -36,57 +35,53 @@ export default function Homepage(){
           console.log(timeTakenInSeconds)
           setDownloadSpeed(speedMbps.toFixed(2));
         }
-  
+
       } catch (error) {
         console.error("Error during download test:", error);
         setDownloadSpeed("Error");
       }
-  
-       const file = new Blob([new Array(fileSizeInBytes).fill("A").join("")], {
+
+      const file = new Blob([new Array(fileSizeInBytes).fill("A").join("")], {
          type: "text/plain",
-       });
-   
-       const formData = new FormData();
-       formData.append("file", file);
-   
-    
+      });
+
+      const formData = new FormData();
+      formData.append("file", file);
+
        try {
-         // Replace with your server endpoint
-         const serverEndpoint = "/api/uploadTest";
-   
+
+        // Replace with your server endpoint
+        const serverEndpoint = "/api/uploadTest";
         await axios.post(serverEndpoint, formData, {
            headers: {
               "Content-Type": "multipart/form-data",
            },
-         });
+        });
 
-         const endTime = performance.now();
-         const timeTakenInSeconds = (endTime - startTime) / 1000;
-   
-         // Calculate upload speed in Mbps
-         const speedMbps =(fileSizeInBytes * 8) / (timeTakenInSeconds * 1000000);
-         console.log(speedMbps)
-         console.log(typeof(speedMbps))
-   
-         setUploadSpeed(speedMbps.toFixed(2));
-       } catch (error) {
-         console.error("Error during upload test:", error);
-         setUploadSpeed("Error");
-       }
+        const endTime = performance.now();
+        const timeTakenInSeconds = (endTime - startTime) / 1000;
+        // Calculate upload speed in Mbps
+        const speedMbps =(fileSizeInBytes * 8) / (timeTakenInSeconds * 1000000);
+        setUploadSpeed(speedMbps.toFixed(2));
+
+      } catch (error) {
+        console.error("Error during upload test:", error);
+        setUploadSpeed("Error");
+      }
   
       // Test ping
       try {
+
         const pingStart = performance.now();
         await axios.get(testUrl, { responseType: "arraybuffer" });
         const pingEnd = performance.now();
         setPing((pingEnd - pingStart).toFixed(2));
+
       } catch {
         setPing("Error");
       }
 
       setIsTesting(false);
-
-
     };
 
 
@@ -94,11 +89,10 @@ export default function Homepage(){
     if(downloadSpeed && uploadSpeed){
         const overallSpeedTest = Math.ceil((Number(downloadSpeed)+Number(uploadSpeed))/2)
         setoverAllSpeed(overallSpeedTest.toString().slice(0, 2))
-
-
     }
-    
   },[downloadSpeed,uploadSpeed])
+
+  
     return(
         <main className="container mx-auto px-6 py-12 text-center">
             <h2 className="text-3xl font-bold mb-6">Test Your Internet Speed</h2>
