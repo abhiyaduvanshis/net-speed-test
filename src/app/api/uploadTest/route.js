@@ -1,41 +1,23 @@
 
-
-import { NextResponse } from 'next/server';
-import fs from "node:fs/promises";
-
-export async function POST(request) {
+import { NextResponse } from "next/server";
+import { Result } from "postcss";
+export async function POST(req) {
     try {
-        const formRequestData = await request.formData()
-        const image = formRequestData.get('file')
-
-        if(image){
-            const arrayBuffer = await image.arrayBuffer();
-            const buffer = new Uint8Array(arrayBuffer);
-            const test = await fs.writeFile(`./public/upload/${image?.name}`, buffer);
-            console.log(test)
+        const chunks = [];
+        for await (const chunk of req.body) {
+            chunks.push(chunk);
         }
+        const rawBody = Buffer.concat(chunks);
 
-        return NextResponse.json(
-            {
-                success:true,
-                message:"done"
-            },
-            {
-                status:200
-            }
-        )
+        return NextResponse.json({
+            status:true,
+            message:"done"
+        })
     } catch (error) {
-        return NextResponse.json(
-            {
-                success:false,
-                message:error
-            },
-            {
-                status:401
-            }
-        )
+        return NextResponse.json({
+            status:true,
+            message:error
+        })
     }
-  
 
-  }
-  
+}
