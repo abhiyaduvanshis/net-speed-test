@@ -123,12 +123,30 @@ const Homepage = () => {
     setUploadSpeed(speedInMbps);
   };
 
+
+  const pingSpeed=async()=>{
+      // Test ping
+      try {
+        const fileUrl = '/upload/blob'; // Use a file with known size
+        const pingStart = performance.now();
+        await axios.get(fileUrl, { responseType: "arraybuffer" });
+        const pingEnd = performance.now();
+        setPing((pingEnd - pingStart).toFixed(2));
+
+      } catch {
+        setPing("Error");
+      }
+  }
+
   const startTest = async () => {
     setIsTesting(true);
     setDownloadSpeed(null);
     setUploadSpeed(null);
+
     await testDownloadSpeed();
     await testUploadSpeed();
+    await pingSpeed();
+
     setIsTesting(false);
   };
 
