@@ -84,57 +84,12 @@ import axios from "axios";
 //       setIsTesting(false);
 //     };
 
-
-//   useEffect(()=>{
-//     if(downloadSpeed && uploadSpeed){
-//         const overallSpeedTest = Math.ceil((Number(downloadSpeed)+Number(uploadSpeed))/2)
-//         setoverAllSpeed(overallSpeedTest.toString().slice(0, 2))
-//     }
-//   },[downloadSpeed,uploadSpeed])
-
-
-//     return(
-//         <main className="container mx-auto px-6 py-12 text-center">
-//             <h2 className="text-3xl font-bold mb-6">Test Your Internet Speed</h2>
-//             <p className="text-gray-700 mb-8">Click below to begin the test and measure your internet speed.</p>
-//             <button className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 focus:ring-4 focus:ring-blue-300" onClick={calculateSpeed} disabled={isTesting}>
-//             {isTesting ? "Testing..." : "Start Test"}
-//             </button>
-
-        
-//             <div className="mt-10 flex justify-center">
-//             <div className="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center shadow-inner">
-//                 <span id="speed" className="text-2xl font-bold">{overAllSpeed ? `${overAllSpeed} Mbps` : "0 Mbps"}</span>
-//             </div>
-//             </div>
-
-            
-//             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-//             <div className="bg-white shadow-md p-6 rounded-md">
-//                 <h3 className="text-lg font-semibold">Download</h3>
-//                 <p id="downloadSpeed" className="text-2xl font-bold text-blue-600"> {downloadSpeed ? `${downloadSpeed.toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
-//             </div>
-            
-//             <div className="bg-white shadow-md p-6 rounded-md">
-//                 <h3 className="text-lg font-semibold">Upload</h3>
-//                 <p id="uploadSpeed" className="text-2xl font-bold text-blue-600"> {uploadSpeed ? `${uploadSpeed.toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
-//             </div>
-
-//             <div className="bg-white shadow-md p-6 rounded-md">
-//                 <h3 className="text-lg font-semibold">Ping</h3>
-//                 <p id="ping" className="text-2xl font-bold text-blue-600"> {ping ? `${ping.toString().slice(0, 2)} ms` : "0 ms"}</p>
-//             </div>
-//             </div>
-//         </main>
-//     )
-// }
-
-
-
 const Homepage = () => {
-  const [downloadSpeed, setDownloadSpeed] = useState(null);
-  const [uploadSpeed, setUploadSpeed] = useState(null);
-  const [testing, setTesting] = useState(false);
+    const [downloadSpeed, setDownloadSpeed] = useState(null);
+    const [uploadSpeed, setUploadSpeed] = useState(null);
+    const [overAllSpeed, setoverAllSpeed] = useState(null);
+    const [ping, setPing] = useState(null);
+    const [isTesting, setIsTesting] = useState(false);
 
   const testDownloadSpeed = async () => {
     const fileUrl = '/upload/blob'; // Use a file with known size
@@ -152,7 +107,7 @@ const Homepage = () => {
   };
 
   const testUploadSpeed = async () => {
-    const data = new Uint8Array(10 * 1024 * 1024); // 10MB of random data
+    const data = new Uint8Array(1 * 1024 * 1024); // 10MB of random data
     const startTime = Date.now();
 
     const response = await axios.post('/api/uploadTest', data, {
@@ -169,28 +124,58 @@ const Homepage = () => {
   };
 
   const startTest = async () => {
-    setTesting(true);
+    setIsTesting(true);
     setDownloadSpeed(null);
     setUploadSpeed(null);
-
     await testDownloadSpeed();
     await testUploadSpeed();
-
-    setTesting(false);
+    setIsTesting(false);
   };
 
-  return (
-    <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h1>Internet Speed Test</h1>
-      <button onClick={startTest} disabled={testing}>
-        {testing ? 'Testing...' : 'Start Test'}
-      </button>
-      <div style={{ marginTop: '20px' }}>
-        {downloadSpeed && <p>Download Speed: {downloadSpeed} Mbps</p>}
-        {uploadSpeed && <p>Upload Speed: {uploadSpeed} Mbps</p>}
-      </div>
-    </div>
-  );
-};
+  useEffect(()=>{
+    if(downloadSpeed && uploadSpeed){
+        const overallSpeedTest = Math.ceil((Number(downloadSpeed)+Number(uploadSpeed))/2)
+        setoverAllSpeed(overallSpeedTest.toString().slice(0, 2))
+    }
+  },[downloadSpeed,uploadSpeed])
+
+
+  return(
+    <main className="container mx-auto px-6 py-12 text-center">
+        <h2 className="text-3xl font-bold mb-6">Test Your Internet Speed</h2>
+        <p className="text-gray-700 mb-8">Click below to begin the test and measure your internet speed.</p>
+        <button className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 focus:ring-4 focus:ring-blue-300" onClick={startTest} disabled={isTesting}>
+        {isTesting ? "Testing..." : "Start Test"}
+        </button>
+
+    
+        <div className="mt-10 flex justify-center">
+        <div className="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center shadow-inner">
+            <span id="speed" className="text-2xl font-bold">{overAllSpeed ? `${overAllSpeed} Mbps` : "0 Mbps"}</span>
+        </div>
+        </div>
+
+        
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white shadow-md p-6 rounded-md">
+            <h3 className="text-lg font-semibold">Download</h3>
+            <p id="downloadSpeed" className="text-2xl font-bold text-blue-600"> {downloadSpeed ? `${downloadSpeed.toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
+        </div>
+        
+        <div className="bg-white shadow-md p-6 rounded-md">
+            <h3 className="text-lg font-semibold">Upload</h3>
+            <p id="uploadSpeed" className="text-2xl font-bold text-blue-600"> {uploadSpeed ? `${uploadSpeed.toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
+        </div>
+
+        <div className="bg-white shadow-md p-6 rounded-md">
+            <h3 className="text-lg font-semibold">Ping</h3>
+            <p id="ping" className="text-2xl font-bold text-blue-600"> {ping ? `${ping.toString().slice(0, 2)} ms` : "0 ms"}</p>
+        </div>
+        </div>
+    </main>
+)
+}
+
+
 
 export default Homepage;
