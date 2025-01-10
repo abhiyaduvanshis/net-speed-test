@@ -123,32 +123,31 @@ const Homepage = () => {
     setUploadSpeed(speedInMbps);
   };
 
-
   const pingSpeed=async()=>{
-      // Test ping
-      try {
-        const fileUrl = '/upload/blob'; // Use a file with known size
-        const pingStart = performance.now();
-        await axios.get(fileUrl, { responseType: "arraybuffer" });
-        const pingEnd = performance.now();
-        setPing((pingEnd - pingStart).toFixed(2));
+    // Test ping
+    try {
+      const fileUrl = '/upload/blob'; // Use a file with known size
+      const pingStart = performance.now();
+      await axios.get(fileUrl, { responseType: "arraybuffer" });
+      const pingEnd = performance.now();
+      setPing((pingEnd - pingStart).toFixed(2));
 
-      } catch {
-        setPing("Error");
-      }
-  }
+    } catch {
+      setPing("Error");
+    }
+}
 
-  const startTest = async () => {
-    setIsTesting(true);
-    setDownloadSpeed(null);
-    setUploadSpeed(null);
+const startTest = async () => {
+  setIsTesting(true);
+  setDownloadSpeed(null);
+  setUploadSpeed(null);
 
-    await testDownloadSpeed();
-    await testUploadSpeed();
-    await pingSpeed();
+  await testDownloadSpeed();
+  await testUploadSpeed();
+  await pingSpeed();
 
-    setIsTesting(false);
-  };
+  setIsTesting(false);
+};
 
   useEffect(()=>{
     if(downloadSpeed && uploadSpeed){
@@ -177,12 +176,12 @@ const Homepage = () => {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white shadow-md p-6 rounded-md">
             <h3 className="text-lg font-semibold">Download</h3>
-            <p id="downloadSpeed" className="text-2xl font-bold text-blue-600"> {downloadSpeed ? `${downloadSpeed} Mbps` : "0 Mbps"}</p>
+            <p id="downloadSpeed" className="text-2xl font-bold text-blue-600"> {downloadSpeed ? `${downloadSpeed.toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
         </div>
         
         <div className="bg-white shadow-md p-6 rounded-md">
             <h3 className="text-lg font-semibold">Upload</h3>
-            <p id="uploadSpeed" className="text-2xl font-bold text-blue-600"> {uploadSpeed ? `${uploadSpeed} Mbps` : "0 Mbps"}</p>
+            <p id="uploadSpeed" className="text-2xl font-bold text-blue-600"> {uploadSpeed ? `${uploadSpeed.toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
         </div>
 
         <div className="bg-white shadow-md p-6 rounded-md">
