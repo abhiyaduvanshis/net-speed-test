@@ -181,12 +181,12 @@ const startTest = async () => {
         
         <div className="bg-white shadow-md p-6 rounded-md">
             <h3 className="text-lg font-semibold">Upload</h3>
-            <p id="uploadSpeed" className="text-2xl font-bold text-blue-600"> {uploadSpeed ? `${Math.ceil(duploadSpeed).toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
+            <p id="uploadSpeed" className="text-2xl font-bold text-blue-600"> {uploadSpeed ? `${Math.ceil(uploadSpeed).toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
         </div>
 
         <div className="bg-white shadow-md p-6 rounded-md">
             <h3 className="text-lg font-semibold">Ping</h3>
-            <p id="ping" className="text-2xl font-bold text-blue-600"> {ping ? `${Math.ceil(dping).toString().slice(0, 2)} ms` : "0 ms"}</p>
+            <p id="ping" className="text-2xl font-bold text-blue-600"> {ping ? `${Math.ceil(ping).toString().slice(0, 2)} ms` : "0 ms"}</p>
         </div>
         </div>
     </main>
