@@ -168,7 +168,7 @@ const startTest = async () => {
     
         <div className="mt-10 flex justify-center">
         <div className="w-40 h-40 bg-gray-200 rounded-full flex items-center justify-center shadow-inner">
-            <span id="speed" className="text-2xl font-bold">{overAllSpeed ? `${overAllSpeed} Mbps` : "0 Mbps"}</span>
+            <span id="speed" className="text-2xl font-bold">Mbps</span>
         </div>
         </div>
 
@@ -176,17 +176,17 @@ const startTest = async () => {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white shadow-md p-6 rounded-md">
             <h3 className="text-lg font-semibold">Download</h3>
-            <p id="downloadSpeed" className="text-2xl font-bold text-blue-600"> {downloadSpeed ? `${downloadSpeed.toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
+            <p id="downloadSpeed" className="text-2xl font-bold text-blue-600"> {downloadSpeed ? `${Math.ceil(downloadSpeed).toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
         </div>
         
         <div className="bg-white shadow-md p-6 rounded-md">
             <h3 className="text-lg font-semibold">Upload</h3>
-            <p id="uploadSpeed" className="text-2xl font-bold text-blue-600"> {uploadSpeed ? `${uploadSpeed.toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
+            <p id="uploadSpeed" className="text-2xl font-bold text-blue-600"> {uploadSpeed ? `${Math.ceil(duploadSpeed).toString().slice(0, 2)} Mbps` : "0 Mbps"}</p>
         </div>
 
         <div className="bg-white shadow-md p-6 rounded-md">
             <h3 className="text-lg font-semibold">Ping</h3>
-            <p id="ping" className="text-2xl font-bold text-blue-600"> {ping ? `${ping.toString().slice(0, 2)} ms` : "0 ms"}</p>
+            <p id="ping" className="text-2xl font-bold text-blue-600"> {ping ? `${Math.ceil(dping).toString().slice(0, 2)} ms` : "0 ms"}</p>
         </div>
         </div>
     </main>
