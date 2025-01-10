@@ -85,11 +85,13 @@ import axios from "axios";
 //     };
 
 const Homepage = () => {
-    const [downloadSpeed, setDownloadSpeed] = useState(null);
-    const [uploadSpeed, setUploadSpeed] = useState(null);
-    const [overAllSpeed, setoverAllSpeed] = useState(null);
-    const [ping, setPing] = useState(null);
-    const [isTesting, setIsTesting] = useState(false);
+  const [downloadSpeed, setDownloadSpeed] = useState(null);
+  const [uploadSpeed, setUploadSpeed] = useState(null);
+  const [overAllSpeed, setoverAllSpeed] = useState(null);
+  const [ping, setPing] = useState(null);
+  const [isTesting, setIsTesting] = useState(false);
+  const [ispDetails, setIspDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const testDownloadSpeed = async () => {
     const fileUrl = '/upload/blob'; // Use a file with known size
@@ -137,6 +139,17 @@ const Homepage = () => {
     }
 }
 
+const fetchIspDetails = async () => {
+  try {
+    const response = await axios.get('https://ipinfo.io/122.161.77.20?token=fc11b9f18348f7');
+    setIspDetails(response.data);
+    setLoading(false);
+  } catch (error) {
+    console.error('Error fetching ISP details:', error);
+    setLoading(false);
+  }
+};
+
 const startTest = async () => {
   setIsTesting(true);
   setDownloadSpeed(null);
@@ -145,6 +158,7 @@ const startTest = async () => {
   await testDownloadSpeed();
   await testUploadSpeed();
   await pingSpeed();
+  await fetchIspDetails();
 
   setIsTesting(false);
 };
@@ -189,6 +203,31 @@ const startTest = async () => {
             <p id="ping" className="text-2xl font-bold text-blue-600"> {ping ? `${Math.ceil(ping).toString().slice(0, 2)} ms` : "0 ms"}</p>
         </div>
         </div>
+
+
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white shadow-md p-6 rounded-md">
+              <h3 className="text-lg font-semibold">City</h3>
+              <p id="downloadSpeed" className="text-2xl text-blue-600"> 
+                {ispDetails?.city}
+              </p>
+          </div>
+
+          <div className="bg-white shadow-md p-6 rounded-md">
+              <h3 className="text-lg font-semibold">Provider</h3>
+              <p id="downloadSpeed" className="text-2xl text-blue-600"> 
+                {ispDetails?.org}
+              </p>
+          </div>
+
+          <div className="bg-white shadow-md p-6 rounded-md">
+              <h3 className="text-lg font-semibold">IP Address</h3>
+              <p id="downloadSpeed" className="text-2xl text-blue-600"> 
+                {ispDetails?.ip}
+              </p>
+          </div>
+        </div>
+        
     </main>
 )
 }
