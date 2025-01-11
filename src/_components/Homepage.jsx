@@ -93,20 +93,53 @@ const Homepage = () => {
   const [ispDetails, setIspDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const testDownloadSpeed = async () => {
-    const fileUrl = '/upload/blob'; // Use a file with known size
-    const startTime = Date.now();
+  // const testDownloadSpeed = async () => {
+  //   const fileUrl = '/upload/blob'; // Use a file with known size
+  //   const startTime = Date.now();
 
-    const response = await fetch(fileUrl);
-    const blob = await response.blob();
-    const fileSizeInBits = blob.size * 8;
+  //   const response = await fetch(fileUrl);
+  //   const blob = await response.blob();
+  //   const fileSizeInBits = blob.size * 8;
 
-    const endTime = Date.now();
-    const durationInSeconds = (endTime - startTime) / 1000;
+  //   const endTime = Date.now();
+  //   const durationInSeconds = (endTime - startTime) / 1000;
 
-    const speedInMbps = (fileSizeInBits / (durationInSeconds * 1024 * 1024)).toFixed(2);
-    setDownloadSpeed(speedInMbps);
-  };
+  //   const speedInMbps = (fileSizeInBits / (durationInSeconds * 1024 * 1024)).toFixed(2);
+  //   setDownloadSpeed(speedInMbps);
+  // };
+
+    const testDownloadSpeed = async () => {
+      setIsTesting(true)
+      const startTime = performance.now();
+      const fileSizeInBytes = 1 * 1024 * 1024
+      const testUrl = "/upload/blob"
+      try {
+        const response = await axios.get(testUrl, {
+          responseType: "arraybuffer",
+          headers: {
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache',
+              'Expires': '0',
+          },
+        })
+
+        if(response){
+          const getfileSize = response.data.byteLength
+          const endTime = performance.now();
+          const timeTakenInSeconds = (endTime - startTime) / 1000;
+          const speedMbps = (getfileSize * 8) / (timeTakenInSeconds * 1000000);
+          console.log(startTime)
+          console.log(endTime)
+          console.log(timeTakenInSeconds)
+          setDownloadSpeed(speedMbps.toFixed(2));
+        }
+
+      } catch (error) {
+        console.error("Error during download test:", error);
+        setDownloadSpeed("Error");
+      }
+
+}
 
   const testUploadSpeed = async () => {
     const data = new Uint8Array(1 * 1024 * 1024); // 10MB of random data
