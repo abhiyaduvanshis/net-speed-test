@@ -24,8 +24,8 @@ export const googleTag = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-  
-      <head>
+    <head>
+
         <script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=G-VVNDYFBP3C`}
@@ -43,6 +43,7 @@ export default function RootLayout({ children }) {
           }}
         ></script>
       </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
