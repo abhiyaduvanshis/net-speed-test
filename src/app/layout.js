@@ -20,6 +20,25 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+
+    <head>
+        {/* Global Site Tag (gtag.js) - Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-VVNDYFBP3C`}
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-VVNDYFBP3C', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        ></script>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
