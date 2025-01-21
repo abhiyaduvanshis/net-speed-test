@@ -1,11 +1,14 @@
-import { Barlow } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const barlow = Barlow({
-  subsets: ['latin'], // Specify the character subset
-  weight: ['400', '700'], // Specify the weights you want to include
-  style: ['normal', 'italic'], // Specify styles (optional)
-  variable: '--font-barlow', // Define a CSS variable for the font (optional)
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const metadata = {
@@ -21,8 +24,30 @@ export const googleTag = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+    <head>
+
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-VVNDYFBP3C`}
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-VVNDYFBP3C', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        ></script>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4979108876053618"
+     crossorigin="anonymous"></script>
+      </head>
+
       <body
-        className={barlow.variable}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
       </body>
