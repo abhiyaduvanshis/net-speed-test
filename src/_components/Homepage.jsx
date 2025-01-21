@@ -92,6 +92,7 @@ const Homepage = () => {
   const [isTesting, setIsTesting] = useState(false);
   const [ispDetails, setIspDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [ip, setIp] = useState('');
 
   // const testDownloadSpeed = async () => {
   //   const fileUrl = '/upload/blob'; // Use a file with known size
@@ -128,9 +129,7 @@ const Homepage = () => {
           const endTime = performance.now();
           const timeTakenInSeconds = (endTime - startTime) / 1000;
           const speedMbps = (getfileSize * 8) / (timeTakenInSeconds * 1000000);
-          console.log(startTime)
-          console.log(endTime)
-          console.log(timeTakenInSeconds)
+      
           setDownloadSpeed(speedMbps.toFixed(2));
         }
 
@@ -156,6 +155,7 @@ const Homepage = () => {
     const dataSizeInBits = data.length * 8;
     const speedInMbps = (dataSizeInBits / (durationInSeconds * 1024 * 1024)).toFixed(2);
     setUploadSpeed(speedInMbps);
+
   };
 
   const pingSpeed=async()=>{
@@ -174,7 +174,10 @@ const Homepage = () => {
 
 const fetchIspDetails = async () => {
   try {
-    const response = await axios.get('https://ipinfo.io/122.161.77.20?token=fc11b9f18348f7');
+    const res = await fetch('https://api.ipify.org?format=json');
+    const data = await res.json();
+    setIp(data.ip);
+    const response = await axios.get('https://ipinfo.io/'+data.ip+'?token=fc11b9f18348f7');
     setIspDetails(response.data);
     setLoading(false);
   } catch (error) {
