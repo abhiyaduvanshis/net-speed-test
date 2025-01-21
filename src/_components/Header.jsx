@@ -5,7 +5,7 @@ export default function Header(){
             <h1 className="text-2xl font-bold">GyaniMeter</h1>
             <nav>
                 <ul className="flex space-x-4">
-                <li><a href="#" className="hover:underline">Home</a></li>
+                <li><a href="/" className="hover:underline">Home</a></li>
                 <li><a href="/calculator/sip-calculator" className="hover:underline">SIP Calculator</a></li>
                 </ul>
             </nav>
