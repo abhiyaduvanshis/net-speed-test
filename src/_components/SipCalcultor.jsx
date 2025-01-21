@@ -124,7 +124,7 @@ export default function SipCalcultor(){
       SIP is a convenient method to save for your long-term financial goals.</p>
 
       <div className='grid grid-cols-12 gap-4 border-spacing-1 border border-gray-300 rounded-lg mt-5 divide-x mb-6'>
-        <div className='col-span-5 p-5'>
+        <div className='xl:col-span-5 p-5  col-span-11'>
           <div className='grid grid-cols-12 gap-4'>
               <div className='col-span-2'>
                 <div className="flex justify-between bg-slate-300 items-cente w-12 h-12 p-3 rounded-full self-center">
@@ -234,14 +234,14 @@ export default function SipCalcultor(){
           </div>
 
         </div>
-        <div className='col-span-7 p-5'>
+        <div className='xl:col-span-7 p-5 col-span-12'>
           <div className="text-center mb-5">
             <p className="text-md pb-1">The total value of your investment after <b>{sliderProps[1]} Years</b>  will be</p>
             <h1 className="text-4xl pb-1 font-extrabold">₹ {totalSipAmount.toLocaleString('en-IN')}</h1>
           </div>
           
-          <div className="flex items-center justify-around">
-            <div className='w-4/12'>
+          <div className="xl:flex items-center justify-around">
+            <div className='xl:w-4/12'>
                 <DonutChart chartData={chartData} />
             </div>
             <div className=''>
