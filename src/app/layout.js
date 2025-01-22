@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
     <head>
-
+<meta name="google-adsense-account" content="ca-pub-8213854543697041"/>
         <script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=G-VVNDYFBP3C`}
@@ -44,6 +44,7 @@ export default function RootLayout({ children }) {
         ></script>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8213854543697041"
      crossorigin="anonymous"></script>
+       
       </head>
 
       <body
