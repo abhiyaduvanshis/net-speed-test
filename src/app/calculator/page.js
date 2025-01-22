@@ -24,8 +24,8 @@ export default function Home() {
     <Header/>
     <main className="container mx-auto px-6 py-12">
         <h1 className="text-3xl font-bold mb-6">Calculator</h1>
-        <p>The SIP calculator helps estimate the potential growth of your Systematic Investment Plan (SIP) investment over your chosen time frame. 
-        SIP is a convenient method to save for your long-term financial goals.</p>
+        {/* <p>The SIP calculator helps estimate the potential growth of your Systematic Investment Plan (SIP) investment over your chosen time frame. 
+        SIP is a convenient method to save for your long-term financial goals.</p> */}
         <div className='grid grid-cols-12 gap-4 mt-4'>
             <div className="col-span-3 border border-gray-300 p-3 rounded-lg">
                 <a href="/calculator/sip-calculator">
