@@ -11,8 +11,8 @@ export default function SipCalcultor(){
 
   const [inputWith,setInputWith] = useState(80)
   const [inputAmountValue,setAmountValue] = useState('5000')
-  const [sliderProps, setSliderProps] = useState([1,5]);
-  const [sliderPercentProps, setsliderPercentProps] = useState([8,12]);
+  const [sliderProps, setSliderProps] = useState([0,5]);
+  const [sliderPercentProps, setsliderPercentProps] = useState([0,12]);
   const [totalSipAmount,setTotalSipAmount] = useState(0)
   const [investAmount,setInvestAmount] = useState(0)
   const [returnAmount,setReturnAmount] = useState(0)
@@ -44,7 +44,7 @@ export default function SipCalcultor(){
   }
 
   const handleInputWith =(event)=> {
-    console.log(inputWith)
+
     const {name,value} = event.target
     const rawValue = event.target.value.replace(/,/g, ""); // Remove commas
     if (/^\d*$/.test(rawValue)) { // Allow only digits
@@ -114,8 +114,6 @@ export default function SipCalcultor(){
   },[inputAmountValue,sliderProps,sliderPercentProps])
 
 
-  console.log(chartData)
-
 
   return(
     <main className="container mx-auto px-6 py-12">
@@ -174,7 +172,7 @@ export default function SipCalcultor(){
                     </div>
                   </div>
                   <RangeSlider
-                    className='mb-2'
+                    className='single-thumb mb-2'
                     id='range-slider'
                     {...sliderProps}
                     onInput={handleSliderChange}
@@ -183,7 +181,9 @@ export default function SipCalcultor(){
                     value={sliderProps}
                     thumbsDisabled={[true, false]}
                     rangeSlideDisabled={true}
+                    thumbs={1}
                   />
+                  
                   <div className='flex'>
                     <div className="flex-1">
                         <p className="text-sm text-gray-400">1 Yrs</p>
@@ -211,7 +211,7 @@ export default function SipCalcultor(){
                     </div>
                   </div>
                   <RangeSlider
-                    className='mb-2'
+                    className='single-thumb mb-2'
                     id='range-slider'
                     {...sliderPercentProps}
                     onInput={handlePercentSliderChange}
