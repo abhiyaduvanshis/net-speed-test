@@ -6,8 +6,7 @@ export default function Header(){
             <nav>
                 <ul className="flex space-x-4">
                 <li><a href="/" className="hover:underline">Home</a></li>
-                <li><a href="/calculator/sip-calculator" className="hover:underline">SIP Calculator</a></li>
-                <li><a href="/calculator/emi-calculator" className="hover:underline">EMI Calculator</a></li>
+                <li><a href="/calculator" className="hover:underline">Calculator</a></li>
                 </ul>
             </nav>
             </div>
